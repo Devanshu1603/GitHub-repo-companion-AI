@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+gitpython
+langchain
+chromadb
+google-generativeai
+python-dotenv
+tiktoken
