@@ -27,8 +27,12 @@ An AI-powered chatbot that enables users to interact with the contents of any pu
 - **Docker** – Containerized deployment
 - **AWS EC2** – Cloud deployment (optional)
 
-### Frontend *(optional)*
-- **React.js** – Chat UI and file input (if applicable)
+### Frontend
+- **React.js + TypeScript** – Frontend app structure
+- **Tailwind CSS** – Responsive and utility-first styling
+- **Vite** – Lightning-fast dev server and bundler
+- **Context API** – State management
+- **Component-based UI** – Modular and reusable chat and input components
 
 ---
 
@@ -73,35 +77,36 @@ Response returned to frontend
 │   └── routes/
 │       ├── upload_repo.py
 │       ├── rag_query.py
-├── frontend/ (optional)
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.tsx
+│   │   └── ...
+│   ├── index.html
+│   ├── package.json
+│   ├── tailwind.config.ts
+│   ├── vite.config.ts
 │   └── ...
 └── README.md
 ```
 
 ---
 
-## 🔧 Setup Instructions
-
-### 📦 Backend Setup
+## 🔧 Backend Setup
 
 ```bash
-git clone https://github.com/yourusername/github-repo-chatbot.git
-cd github-repo-chatbot/backend
-```
-
-1. **Install dependencies**
-
-```bash
+cd backend
 pip install -r requirements.txt
 ```
 
-2. **Create a `.env` file**
+1. Create a `.env` file
 
 ```env
 GEMINI_API_KEY=your_gemini_key
 ```
 
-3. **Run the API server**
+2. Run the FastAPI server
 
 ```bash
 uvicorn main:app --reload
@@ -109,12 +114,15 @@ uvicorn main:app --reload
 
 ---
 
-### 🐳 Docker Deployment (Optional)
+## 🔧 Frontend Setup
 
 ```bash
-docker build -t github-chatbot .
-docker run -d -p 8000:8000 github-chatbot
+cd frontend
+npm install
+npm run dev
 ```
+
+Visit: [http://localhost:5173](http://localhost:5173)
 
 ---
 
