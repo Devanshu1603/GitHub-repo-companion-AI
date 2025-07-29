@@ -27,7 +27,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   return (
     <div className="flex flex-col h-full">
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 mt-20">
         {messages.length === 0 ? (
           <div className="flex h-full items-center justify-center">
             <div className="text-center text-gray-500">

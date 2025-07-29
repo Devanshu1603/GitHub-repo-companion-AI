@@ -14,6 +14,7 @@ interface FileTreeSidebarProps {
   showMetadata: boolean;
 }
 
+
 interface FileTreeProps {
   files: FileNode[];
   level?: number;
@@ -117,7 +118,7 @@ const FileTreeSidebar: React.FC<FileTreeSidebarProps> = ({
   return (
     <div className="flex flex-col h-full">
       <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-        <h3 className="font-medium truncate">{repoInfo.name}</h3>
+        <h3 className="font-medium truncate">GitHub Repo Companion AI</h3>
         <Button variant="ghost" size="icon" className="md:hidden" onClick={onClose}>
           <X size={18} />
         </Button>
@@ -171,6 +172,9 @@ const FileTreeSidebar: React.FC<FileTreeSidebarProps> = ({
                     <Info size={16} className="shrink-0 mt-1 text-gray-500" />
                     <div>
                       <h4 className="font-medium">Repository Info</h4>
+                      <p className="text-gray-500 text-xs mt-1">
+                        Repo-Name: <span className="font-medium">{repoInfo.name}</span>
+                      </p>
                       <p className="text-gray-500 text-xs mt-1">
                         Owner: <span className="font-medium">{repoInfo.owner}</span>
                       </p>

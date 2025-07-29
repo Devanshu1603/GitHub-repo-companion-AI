@@ -9,39 +9,32 @@ interface MessageBubbleProps {
 
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
   const [copied, setCopied] = React.useState(false);
-  
   const isUser = message.role === 'user';
-  
-  // Function to copy code to clipboard
+
+  // Copy code to clipboard
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-  
-  // Function to format code blocks in text
+
+  // Format content with code block and rich text (bold + bullets)
   const formatContent = (content: string) => {
-    // Regular expression to match code blocks
     const codeBlockRegex = /```([a-zA-Z]*)\n([\s\S]*?)\n```/g;
-    
+
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
     let match;
-    
+
     while ((match = codeBlockRegex.exec(content)) !== null) {
-      // Add text before code block
       if (match.index > lastIndex) {
-        parts.push(
-          <p key={`text-${lastIndex}`} className="whitespace-pre-wrap">
-            {content.substring(lastIndex, match.index)}
-          </p>
-        );
+        const textBeforeCode = content.substring(lastIndex, match.index);
+        parts.push(...parseTextContent(textBeforeCode));
       }
-      
+
       const language = match[1] || 'text';
       const code = match[2];
-      
-      // Add code block
+
       parts.push(
         <div key={`code-${match.index}`} className="my-2 bg-gray-800 rounded-md overflow-hidden">
           <div className="flex justify-between items-center px-4 py-2 bg-gray-900 text-gray-200">
@@ -59,34 +52,64 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
           </pre>
         </div>
       );
-      
+
       lastIndex = match.index + match[0].length;
     }
-    
-    // Add any remaining text
+
     if (lastIndex < content.length) {
-      parts.push(
-        <p key={`text-${lastIndex}`} className="whitespace-pre-wrap">
-          {content.substring(lastIndex)}
-        </p>
-      );
+      const remainingText = content.substring(lastIndex);
+      parts.push(...parseTextContent(remainingText));
     }
-    
+
     return parts.length > 0 ? parts : <p className="whitespace-pre-wrap">{content}</p>;
+  };
+
+  // Helper to parse and render bullet points and bold text
+  const parseTextContent = (text: string) => {
+    const lines = text.split('\n');
+    const elements: React.ReactNode[] = [];
+
+    lines.forEach((line, index) => {
+      // Bullet point line
+      if (/^\*\s+/.test(line)) {
+        const cleanedLine = line.replace(/^\*\s+/, '');
+        const formatted = cleanedLine.replace(/\*\*(.+?)\*\*/g, (_, boldText) => `<b>${boldText}</b>`);
+
+        elements.push(
+          <div key={`bullet-${index}`} className="flex items-start space-x-2">
+            <span className="mt-1">* </span>
+            <span
+              className="whitespace-pre-wrap"
+              dangerouslySetInnerHTML={{ __html: formatted }}
+            />
+          </div>
+        );
+      } else {
+        // Regular paragraph
+        const formatted = line.replace(/\*\*(.+?)\*\*/g, (_, boldText) => `<b>${boldText}</b>`);
+        elements.push(
+          <p key={`line-${index}`} className="whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: formatted }} />
+        );
+      }
+    });
+
+    return elements;
   };
 
   return (
     <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
-      <div className={`max-w-3xl px-4 py-3 rounded-lg ${
-        isUser 
-          ? 'bg-blue-600 text-white' 
-          : 'bg-white border border-gray-200 text-gray-800'
-      }`}>
+      <div
+        className={`max-w-3xl px-4 py-3 rounded-lg ${
+          isUser
+            ? 'bg-blue-600 text-white'
+            : 'bg-white border border-gray-200 text-gray-800'
+        }`}
+      >
         <div className="text-sm font-medium mb-1">
           {isUser ? 'You' : 'AI Assistant'}
-          <span className="text-xs opacity-70 ml-2">
+            <span className="text-xs ml-2">
             {formatTimestamp(message.timestamp)}
-          </span>
+            </span>
         </div>
         <div className={`prose ${isUser ? 'prose-invert' : ''} max-w-none`}>
           {formatContent(message.content)}

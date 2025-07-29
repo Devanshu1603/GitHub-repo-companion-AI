@@ -108,7 +108,7 @@ const Chat: React.FC = () => {
               <Menu size={20} />
             </Button>
             <h1 className="text-xl font-semibold truncate">
-              {repoInfo?.name || 'Repository Chat'}
+              GitGuide
             </h1>
           </div>
           
