@@ -12,7 +12,6 @@ An AI-powered chatbot that enables users to interact with the contents of any pu
 - 🧠 Embeds content using Gemini 1.5 Flash LLM
 - 🔍 Semantic search using ChromaDB (Vector DB)
 - 💬 Chat interface for asking contextual questions about the code
-- ☁️ Dockerized backend, deployable on AWS EC2
 
 ---
 
@@ -24,8 +23,7 @@ An AI-powered chatbot that enables users to interact with the contents of any pu
 - **LangChain** – RAG pipeline and LLM orchestration
 - **Gemini 1.5 Flash** – Google’s LLM for embeddings and response generation
 - **ChromaDB** – Lightweight vector store for semantic search
-- **Docker** – Containerized deployment
-- **AWS EC2** – Cloud deployment (optional)
+
 
 ### Frontend
 - **React.js + TypeScript** – Frontend app structure
@@ -131,7 +129,7 @@ Visit: [http://localhost:5173](http://localhost:5173)
 | Method | Endpoint          | Description                          |
 |--------|-------------------|--------------------------------------|
 | POST   | `/upload-repo/`   | Clone and process GitHub repository |
-| POST   | `/query/`         | Ask questions about the codebase    |
+| POST   | `/chat`         | Ask questions about the codebase    |
 
 ---
 
