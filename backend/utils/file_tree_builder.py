@@ -31,5 +31,4 @@ def build_file_tree(path: str) -> dict:
                 })
     except Exception as e:
         print(f"⚠️ Error reading {path}: {e}")
-    
     return tree
