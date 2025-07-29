@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import upload_repo, chat, file_viewer
+import os
+import uvicorn
 
 app = FastAPI(
     title="GitHub Repo AI Chatbot",
@@ -32,3 +34,7 @@ app.include_router(file_viewer.router)
 @app.get("/")
 async def root():
     return {"message": "Welcome to the GitHub Repo AI Chatbot API!"}    
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
