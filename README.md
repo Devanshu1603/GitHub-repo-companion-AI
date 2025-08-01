@@ -12,6 +12,7 @@ An AI-powered chatbot that enables users to interact with the contents of any pu
 - 🧠 Embeds content using Gemini 1.5 Flash LLM
 - 🔍 Semantic search using ChromaDB (Vector DB)
 - 💬 Chat interface for asking contextual questions about the code
+- 🤖 Built-in AI Agents: Bug Finder, Code Reviewer, Doc Generator
 
 ---
 
@@ -129,7 +130,10 @@ Visit: [http://localhost:5173](http://localhost:5173)
 | Method | Endpoint          | Description                          |
 |--------|-------------------|--------------------------------------|
 | POST   | `/upload-repo/`   | Clone and process GitHub repository |
-| POST   | `/chat`         | Ask questions about the codebase    |
+| POST   | `/chat`           | Ask questions about the codebase |
+| POST   | `/debug`          | Accepts code and runs the bug-finder agent |
+| POST   | `/review`         | Reviews the provided code and returns a formatted list of review points |
+| POST   | `/docgen`         | Generates inline documentation and summary for the provided code. |
 
 ---
 
