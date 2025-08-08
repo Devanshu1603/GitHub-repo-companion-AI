@@ -6,46 +6,43 @@ The system ensures minimal token usage through smart chunk-level retrieval and i
 
 ```
 
----
-
 ## 📁 Project Structure
 
 ```
 📦 github-repo-companion-AI/
 ├── backend/
-│   ├── main.py                  # FastAPI app entry point
-│   ├── main.py                  # includes all dependencies
+│   ├── main.py                 # FastAPI app entry point
 │   ├── config/
-│   │   └── env.py               # Setting up .enc contents
+│   │   └── env.py              # Setting up .env contents
 │   ├── services/
-│   │   ├── repo_processor.py    # Clones and filters repo files
-│   │   ├── chunker.py           # Header-aware recursive chunking logic
-│   │   ├── embedder.py          # Embedding generation using Gemini
-│   │   ├── vector_db.py         # Search and storage logic for ChromaDB
-│   │   ├── llm_wrapper.py       # Gemini LLM API integration
-│   │   └── retrieval.py         # Retrieves relevant code chunks for queries
-│   ├── tools/                   # LangChain tools + agents
-│   │   ├── agent_executor.py    # Creates ReAct agent with tools + memory
-│   │   ├── file_tree_builder.py # create the cloned repo file directory
-│   │   ├── multi_tool.py        # contain functions for all tools to be used
-│   │   └── tool_registry.py     # Combines all tools into a unified list
+│   │   ├── repo_processor.py   # Clones and filters repo files
+│   │   ├── chunker.py          # Header-aware recursive chunking logic
+│   │   ├── embedder.py         # Embedding generation using Gemini
+│   │   ├── vector_db.py        # Search and storage logic for ChromaDB
+│   │   ├── llm_wrapper.py      # Gemini LLM API integration
+│   │   └── retrieval.py        # Retrieves relevant code chunks for queries
+│   ├── tools/                  # LangChain tools + agents
+│   │   ├── agent_executor.py   # Creates ReAct agent with tools + memory
+│   │   ├── file_tree_builder.py# Create the cloned repo file directory
+│   │   ├── multi_tool.py       # Contains functions for all tools to be used
+│   │   └── tool_registry.py    # Combines all tools into a unified list
 │   ├── routes/
-│   │   ├── upload_repo.py       # Upload repo + process endpoints
-│   │   ├── chat.py              # Conversational endpoint using ReAct agent
-│   │   └── file_viewer.py       # Returns file structure + content
+│   │   ├── upload_repo.py      # Upload repo + process endpoints
+│   │   ├── chat.py             # Conversational endpoint using ReAct agent
+│   │   └── file_viewer.py      # Returns file structure + content
 ├── project/
 │   ├── public/
 │   ├── src/
-│   │   ├── components/          # React components for UI
-│   │   ├── App.tsx              # Main app component
-│   │   └── ...                  # Other UI utilities
+│   │   ├── components/         # React components for UI
+│   │   ├── App.tsx             # Main app component
+│   │   └── ...                 # Other UI utilities
 │   ├── index.html
 │   ├── package.json
 │   ├── tailwind.config.ts
 │   ├── vite.config.ts
 ├── README.md                   # Project documentation
-
 ```
+
 
 ---
 
