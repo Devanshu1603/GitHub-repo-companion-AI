@@ -1,62 +1,9 @@
 # 🤖 GitHub Repository Companion – AI Chatbot
 
-An AI-powered chatbot that enables users to interact with the contents of any public GitHub repository in natural language. Simply provide a GitHub repo link, and the assistant can summarize code, explain logic, answer questions, and guide you through unfamiliar codebases — all powered by LLMs and a Retrieval-Augmented Generation (RAG) pipeline.
+This project implements an AI-powered GitHub assistant that combines retrieval-augmented generation (RAG), LangChain agents, and OpenAI's GPT-4o to provide natural language interaction with public GitHub repositories.
+Upon receiving a GitHub URL, the system clones the repository, parses and chunks the source code, generates vector embeddings, and stores them in a semantic vector database (ChromaDB). Users can then ask questions like "explain this file," "find bugs," or "optimize performance," and the assistant uses a ReAct-based agent framework to route the query to the most appropriate tool (e.g., code explainer, bug finder, optimizer).
+The system ensures minimal token usage through smart chunk-level retrieval and includes conversational memory to maintain multi-turn context. This allows developers to explore, understand, and refactor unfamiliar codebases quickly and intuitively — all through natural language queries.
 
----
-
-## 🚀 Features
-
-- 🔗 Input any public GitHub repository URL
-- 📁 Automatically clones and parses relevant code files
-- 🧩 Recursive chunking of code using header-aware logic
-- 🧠 Embeds content using Gemini 1.5 Flash LLM
-- 🔍 Semantic search using ChromaDB (Vector DB)
-- 💬 Chat interface for asking contextual questions about the code
-- 🤖 Built-in AI Agents: Bug Finder, Code Reviewer, Doc Generator
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-- **FastAPI** – Python-based backend API
-- **GitPython** – GitHub repo cloning and file extraction
-- **LangChain** – RAG pipeline and LLM orchestration
-- **Gemini 1.5 Flash** – Google’s LLM for embeddings and response generation
-- **ChromaDB** – Lightweight vector store for semantic search
-
-
-### Frontend
-- **React.js + TypeScript** – Frontend app structure
-- **Tailwind CSS** – Responsive and utility-first styling
-- **Vite** – Lightning-fast dev server and bundler
-- **Context API** – State management
-- **Component-based UI** – Modular and reusable chat and input components
-
----
-
-## 🧠 How It Works
-
-```
-User inputs GitHub URL
-        ↓
-Clone repo with GitPython
-        ↓
-Extract relevant source files (.py, .js, .md, etc.)
-        ↓
-Chunk files recursively (header-aware)
-        ↓
-Generate embeddings via Gemini LLM
-        ↓
-Store chunks & embeddings in ChromaDB
-        ↓
-User sends a query via chat
-        ↓
-Top relevant chunks retrieved from ChromaDB
-        ↓
-Gemini generates context-aware answer
-        ↓
-Response returned to frontend
 ```
 
 ---
@@ -64,30 +11,40 @@ Response returned to frontend
 ## 📁 Project Structure
 
 ```
-📦github-repo-chatbot/
+📦 github-repo-companion-AI/
 ├── backend/
-│   ├── main.py
+│   ├── main.py                  # FastAPI app entry point
+│   ├── main.py                  # includes all dependencies to be installed
+│   ├── config/
+│   │   └── env.py               # Setting up .enc contents
 │   ├── services/
-│   │   ├── repo_processor.py
-│   │   ├── chunker.py
-│   │   ├── embedder.py
-│   │   ├── vector_db.py
-│   │   ├── llm_wrapper.py
-│   └── routes/
-│       ├── upload_repo.py
-│       ├── rag_query.py
-├── frontend/
+│   │   ├── repo_processor.py    # Clones and filters repo files
+│   │   ├── chunker.py           # Header-aware recursive chunking logic
+│   │   ├── embedder.py          # Embedding generation using Gemini
+│   │   ├── vector_db.py         # Search and storage logic for ChromaDB
+│   │   ├── llm_wrapper.py       # Gemini LLM API integration
+│   │   └── retrieval.py         # Retrieves relevant code chunks for queries
+│   ├── tools/                   # LangChain tools + agents
+│   │   ├── agent_executor.py    # Creates ReAct agent with tools + memory
+│   │   ├── file_tree_builder.py # create the cloned repo file directory
+│   │   ├── multi_tool.py        # contain functions for all tools to be used
+│   │   └── tool_registry.py     # Combines all tools into a unified list
+│   ├── routes/
+│   │   ├── upload_repo.py       # Upload repo + process endpoints
+│   │   ├── chat.py              # Conversational endpoint using ReAct agent
+│   │   └── file_viewer.py       # Returns file structure + content
+├── project/
 │   ├── public/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── App.tsx
-│   │   └── ...
+│   │   ├── components/          # React components for UI
+│   │   ├── App.tsx              # Main app component
+│   │   └── ...                  # Other UI utilities
 │   ├── index.html
 │   ├── package.json
 │   ├── tailwind.config.ts
 │   ├── vite.config.ts
-│   └── ...
-└── README.md
+├── README.md                   # Project documentation
+
 ```
 
 ---
@@ -103,6 +60,7 @@ pip install -r requirements.txt
 
 ```env
 GEMINI_API_KEY=your_gemini_key
+OPENAI_API_KEY=your_openai_key
 ```
 
 2. Run the FastAPI server
@@ -116,7 +74,7 @@ uvicorn main:app --reload
 ## 🔧 Frontend Setup
 
 ```bash
-cd frontend
+cd project
 npm install
 npm run dev
 ```
@@ -124,6 +82,21 @@ npm run dev
 Visit: [http://localhost:5173](http://localhost:5173)
 
 ---
+## Dependencies
+
+This project requires the following Python packages:
+
+- fastapi
+- uvicorn
+- gitpython
+- langchain
+- chromadb
+- google-generativeai
+- python-dotenv
+- tiktoken
+- sentence-transformers
+
+Make sure to install these packages using the `requirements.txt` file.
 
 ## 📬 API Endpoints
 
@@ -131,9 +104,6 @@ Visit: [http://localhost:5173](http://localhost:5173)
 |--------|-------------------|--------------------------------------|
 | POST   | `/upload-repo/`   | Clone and process GitHub repository |
 | POST   | `/chat`           | Ask questions about the codebase |
-| POST   | `/debug`          | Accepts code and runs the bug-finder agent |
-| POST   | `/review`         | Reviews the provided code and returns a formatted list of review points |
-| POST   | `/docgen`         | Generates inline documentation and summary for the provided code. |
 
 ---
 
