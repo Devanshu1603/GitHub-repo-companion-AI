@@ -4,7 +4,7 @@ from services.embedder import get_embedding
 # Initialize ChromaDB instance
 db = ChromaDBWrapper()
 
-def retrieve_relevant_context(query: str, top_k: int = 5) -> str:
+def retrieve_relevant_context(query: str, top_k: int = 10) -> str:
     """
     Retrieves the top-k most relevant code/document chunks from the vector DB
     using the RAG pipeline.

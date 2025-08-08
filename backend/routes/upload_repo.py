@@ -4,7 +4,7 @@ from services.repo_processor import clone_repo, get_relevant_files
 from services.chunker import chunk_file
 from services.embedder import get_embedding
 from services.vector_db import ChromaDBWrapper
-from utils.file_tree_builder import build_file_tree
+from tools.file_tree_builder import build_file_tree
 import os
 
 # Configure logging

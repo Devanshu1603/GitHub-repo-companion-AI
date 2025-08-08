@@ -32,5 +32,5 @@ Question: {input}
 def get_agent_executor() -> Runnable:
     llm = ChatOpenAI(model="gpt-4o", temperature=0)
     agent = create_react_agent(llm=llm, tools=tools, prompt=REACT_PROMPT)
-    executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+    executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
     return executor
