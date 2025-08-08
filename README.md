@@ -14,7 +14,7 @@ The system ensures minimal token usage through smart chunk-level retrieval and i
 📦 github-repo-companion-AI/
 ├── backend/
 │   ├── main.py                  # FastAPI app entry point
-│   ├── main.py                  # includes all dependencies to be installed
+│   ├── main.py                  # includes all dependencies
 │   ├── config/
 │   │   └── env.py               # Setting up .enc contents
 │   ├── services/
