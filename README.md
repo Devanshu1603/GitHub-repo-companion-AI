@@ -1,5 +1,5 @@
 # 🤖 GitHub Repository Companion – AI Chatbot
-
+```
 This project implements an AI-powered GitHub assistant that combines retrieval-augmented generation (RAG), LangChain agents, and OpenAI's GPT-4o to provide natural language interaction with public GitHub repositories.
 Upon receiving a GitHub URL, the system clones the repository, parses and chunks the source code, generates vector embeddings, and stores them in a semantic vector database (ChromaDB). Users can then ask questions like "explain this file," "find bugs," or "optimize performance," and the assistant uses a ReAct-based agent framework to route the query to the most appropriate tool (e.g., code explainer, bug finder, optimizer).
 The system ensures minimal token usage through smart chunk-level retrieval and includes conversational memory to maintain multi-turn context. This allows developers to explore, understand, and refactor unfamiliar codebases quickly and intuitively — all through natural language queries.
