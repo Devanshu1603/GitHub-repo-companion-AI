@@ -101,8 +101,7 @@ function App() {
 
   const tabs = [
     { id: 'chat', name: 'Chat', icon: MessageSquare },
-    { id: 'file', name: 'File Viewer', icon: FileText },
-    { id: 'agents', name: 'AI Agents', icon: Zap }
+    { id: 'file', name: 'File Viewer', icon: FileText }
   ];
 
   return (
@@ -184,14 +183,14 @@ function App() {
                 )}
               </div>
               )}
-              {activeTab === 'agents' && (
+              {/* {activeTab === 'agents' && (
               <AgentPanel
                 onRunAgent={handleRunAgent}
                 isLoading={isLoadingAgent}
                 results={agentResults}
                 selectedFilePath={selectedFile?.path || null}
               />
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -206,7 +205,7 @@ function App() {
               Enter a GitHub repository URL below to start analyzing code with AI-powered tools.
             </p>
             {!repoData && <RepoInput onSubmit={handleRepoSubmit} isLoading={isLoadingRepo} />}
-            <div className="grid grid-cols-1 gap-3 text-sm pl-20 bg-red-50 p-4 rounded-lg">
+            <div className="grid grid-cols-1 gap-3 text-sm pl-20 p-4 rounded-lg">
               <div className="flex items-center gap-2 text-left">
                 <MessageSquare className="h-4 w-4 text-blue-500" />
                 <span>Chat with your codebase using natural language</span>
