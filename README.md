@@ -5,6 +5,7 @@ Upon receiving a GitHub URL, the system clones the repository, parses and chunks
 The system ensures minimal token usage through smart chunk-level retrieval and includes conversational memory to maintain multi-turn context. This allows developers to explore, understand, and refactor unfamiliar codebases quickly and intuitively — all through natural language queries.
 
 ```
+---
 
 ## 📁 Project Structure
 
